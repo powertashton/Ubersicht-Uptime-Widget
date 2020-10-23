@@ -1,7 +1,7 @@
 
 # POSITION WIDGET ON SCREEN
 pos_bottom		= '0px'
-pos_right	= '100px'
+pos_right	= '120px'
 
 # COLOUR SETTINGS
 uptimeColor	= 'WHITE'
@@ -15,7 +15,7 @@ bkground		=  'rgba(185,185,185,0.1)'
 command: "uptime | awk '{ if ((/day/ && /hr/) || (/day/ && /min/) || (/day/ && /sec/)){ print $3, substr($4, 1, length($4)-1), $5, substr($6, 1, length($6)-1) } 
 						  else if (/day/) { print $3, substr($4, 1, length($4)-1), substr($5, 1, length($5)-1) }
 						  else if (/sec/ || /min/ || /hr/)  { print $3, substr($4, 1, length($4)-1) }
-						  else { print substr($3, 1, length($3)-1) } }' && scutil --get ComputerName"
+						  else { print substr($3, 1, length($3)-1) } }'"
 
 # Update uptime every 60 secs
 refreshFrequency: 60000
@@ -69,13 +69,10 @@ render: -> """
 update: (output,domEl) ->
   values		= output.split("\n")
   uptime 		= values[0]
-  computername 	= values[1]
   div			= $(domEl)
 
   if (uptime != '')
     div.find('.uptime').html(uptime)
-    div.find('.computername').html(computername)
-  else
-    div.find('.computername').html('Uptime is not available')
+
     
   		 
